@@ -1,0 +1,47 @@
+﻿@using Lumia.Models;
+@model List<Team>
+<!-- DataTales Example -->
+<form  enctype="multipart/form-data">
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+                <a  class="btn" asp-action="Create" asp-controller="Team" asp-area="Manage"> Create</a>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              
+                <thead>
+                    
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Word</th>
+                        <th>Description</th>
+                        <th>ImgUrl</th>
+                        <th>
+                            Choice
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.Word</td>
+                            <td>@item.Description</td>
+                                <td><img src="~/Upload/@item.ImgUrl" style="width:200px; height:auto;"></td>
+                            <td>
+                                <a class="btn btn-danger" asp-action="Delete" asp-controller="Team" asp-route-id=@item.Id class="nav-link scrollto ">Delete</a>
+                                <a class="btn btn-warning" asp-action="Update" asp-controller="Team" asp-route-id=@item.Id class="nav-link scrollto ">Update</a>
+                            </td>
+                        </tr>
+                    }                                 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</form>
