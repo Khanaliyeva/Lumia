@@ -31,7 +31,7 @@
                         <tr>
                             <td>@item.FullName</td>
                             <td>@item.Word</td>
-                            <td>@item.Description</td>
+                            <td>@item.Description.Substring(0,10)</td>
                                 <td><img src="~/Upload/@item.ImgUrl" style="width:200px; height:auto;"></td>
                             <td>
                                 <a class="btn btn-danger" asp-action="Delete" asp-controller="Team" asp-route-id=@item.Id class="nav-link scrollto ">Delete</a>
