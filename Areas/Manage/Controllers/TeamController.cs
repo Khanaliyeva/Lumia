@@ -71,6 +71,10 @@ namespace Lumia.Areas.Manage.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateTeamVm teamVm)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             Team oldTeam=await _context.Teams.FirstOrDefaultAsync(c=>c.Id==teamVm.Id);
             oldTeam.FullName=teamVm.FullName;
             oldTeam.Word=teamVm.Word;
@@ -93,6 +97,5 @@ namespace Lumia.Areas.Manage.Controllers
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
