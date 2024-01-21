@@ -1,4 +1,5 @@
-﻿using Lumia.Models;
+﻿using Lumia.Helpers;
+using Lumia.Models;
 using Lumia.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,11 @@ namespace Lumia.Controllers
 			_signInManager = signInManager;
 			_roleManager = roleManager;
 		}
+
+
+        //GunelKh sade rolesuz Gunel098  gunel@gmail.com
+        //g@gmail.com  Gunel1 Gunel000 ADMIN
+        //fuad2007@gmail.com  FuadKh Fuad123 user
 
 
         public IActionResult Register()
@@ -48,6 +54,7 @@ namespace Lumia.Controllers
 					ModelState.AddModelError("", item.Description);
 				}
 			}
+			await _userManager.AddToRoleAsync(user,UserRole.User.ToString());
 			return RedirectToAction("Index","Home");
 		}
 
@@ -88,5 +95,22 @@ namespace Lumia.Controllers
 			_signInManager.SignOutAsync();
 			return RedirectToAction("Index", "Home");
 		}
+
+
+
+		public async Task<IActionResult> CreateRole()
+		{
+            foreach (UserRole role in Enum.GetValues(typeof(UserRole)))
+            {
+                if(!await _roleManager.RoleExistsAsync(role.ToString()))
+				{
+					await _roleManager.CreateAsync(new IdentityRole()
+					{
+						Name=role.ToString()
+					});
+				}
+            }
+			return RedirectToAction("Index","Home");
+        }
 	}
 }
