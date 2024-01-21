@@ -51,8 +51,17 @@
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li><a class="nav-link scrollto" href="#services">Services</a></li>
-                    <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
-                    <li><a class="nav-link scrollto" href="#testimonials">Testimonials</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-action="Login" asp-controller="Account" class="nav-link scrollto " >Login</a></li>
+                        <li><a asp-action="Register" asp-controller="Account" class="nav-link scrollto" >Register</a></li>
+                    }
+                    else
+                    {
+                        <li><a asp-action="LogOut" asp-controller="Account" class="nav-link scrollto ">LogOut</a></li>
+                        <li><a  class="nav-link scrollto" >@User.Identity.Name</a></li>
+                    }
+
                     <li class="dropdown">
                         <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
